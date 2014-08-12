@@ -141,6 +141,7 @@ string formatForOutput(std::vector<string>& aResult)
 
   return myString;
 }
+
 /**
  * Takes a const reference to a grammar stored in a map and prints
  * sentences produced by applying the grammar rules. The number of

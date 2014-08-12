@@ -61,10 +61,14 @@ const Production& Definition::getRandomProduction() const
 	// Index range.
 	int startIndex = 0;
    	int endIndex = this->possibleExpansions.size()-1;
-   
+
+   	std::cout << "XXXXXXXXXXXXXXXXXX-startIndex: (" << startIndex << ") endIndex: (" << endIndex << ")" << endl;  
+   	
    	// Generate a random index within range.
    	RandomGenerator myRandomGenerator;
    	int randomIndex = myRandomGenerator.getRandomInteger(startIndex, endIndex);
+
+   	std::cout << "ZZZZZZZZZZZZZZZZZZ-randomIndex: (" << randomIndex << ")" << endl;
 
    	return this->possibleExpansions[randomIndex];
 }
