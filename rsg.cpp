@@ -78,7 +78,7 @@ static void expandOn(const map<string, Definition>& grammar, int aNonTerminalPos
       }
 
       Definition myDefinition = iterator->second;
-      
+
       Production myRandProduction = myDefinition.getRandomProduction();
       
       // Get iterator 1 passed pos to insert.
@@ -111,6 +111,37 @@ static void expandOn(const map<string, Definition>& grammar, int aNonTerminalPos
 }
 
 /**
+ * Takes in a vector of terminals and combines
+ * them to make one correctly formated string.
+ */
+string formatForOutput(std::vector<string>& aResult)
+{
+  // String to store final combined output.
+  std::string myString;
+
+  // Loop through vector to append parts.
+  for(auto start = aResult.rbegin(); start != aResult.rend(); start++)
+  {
+    if(start == aResult.rend()-1)
+    {
+      // Last insert.
+      myString.insert(0, (*start) );
+    }
+    else if( (*start).find_first_of(".?:!,") != string::npos)
+    {
+      // If punctuation found.
+      myString.insert(0, (*start) );
+    }
+    else
+    {  
+      // Not punctuation.
+      myString.insert(0, " "+(*start) );
+    }
+  }
+
+  return myString;
+}
+/**
  * Takes a const reference to a grammar stored in a map and prints
  * sentences produced by applying the grammar rules. The number of
  * sentences should be as specified by the second parameter.
@@ -123,43 +154,21 @@ static void expandOn(const map<string, Definition>& grammar, int aNonTerminalPos
 static void generateRandomSentences(const map<string, Definition>& grammar, 
 				    int numSentencesNeeded)
 {
-  /*
-  for(auto start = grammar.begin(); start != grammar.end(); start++)
+  
+  // Loop through numSentencesNeeded times.
+  int i;
+  for(i=0;i<numSentencesNeeded;i++)
   {
-      std::cout << "First Non-Terminal: (" << (*start).first << ")" << endl;
+    std::vector<string> myResult;
 
-      Definition myDefinition = (*start).second;
-      
-      std::cout << "Non-Terminal In Object: (" << myDefinition.nonterminal << ")" << endl;
+    myResult.push_back("<start>");
+    
+    expandOn(grammar, 0, myResult);
+    
+    std::string output = formatForOutput(myResult);
 
-      for(auto start2 = myDefinition.possibleExpansions.begin(); start2 != myDefinition.possibleExpansions.end(); start2++)
-      {
-        std::cout << "Production:";
-
-        for(auto start3 = start2->phrases.begin(); start3 != start2->phrases.end(); start3++)
-        {
-          std::cout << "(" << (*start3) << ")"; 
-        }
-
-        std::cout << endl;
-      }
-
+    std::cout << "Output: (" << output << ")" << endl;
   }
-  */
-  
-  std::vector<string> myResult;
-
-  myResult.push_back("<start>");
-  
-  expandOn(grammar, 0, myResult);
-  
-  for(auto start = myResult.begin(); start != myResult.end(); start++)
-  {
-    std::cout << "{" << (*start) << "}";
-  }
-
-  std::cout << endl;
-  
 
 }
 
