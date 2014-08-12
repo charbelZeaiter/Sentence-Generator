@@ -78,7 +78,7 @@ static void expandOn(const map<string, Definition>& grammar, int aNonTerminalPos
       }
 
       Definition myDefinition = iterator->second;
-
+      
       Production myRandProduction = myDefinition.getRandomProduction();
       
       // Get iterator 1 passed pos to insert.
@@ -89,27 +89,23 @@ static void expandOn(const map<string, Definition>& grammar, int aNonTerminalPos
       resultIterator = aResult.begin()+aNonTerminalPos;
       aResult.erase(resultIterator);
 
-      // Iterate through result vector to expand on more non-terminals.
+      // Iterate through result vector to expand on non-terminals.
+      // Start from previously expanded position.
       int newNonTerminalPos = -1;
-      int pos = -1;
-      for(auto start = aResult.begin(); start != aResult.end(); start++)
+      int pos = aNonTerminalPos;
+      for(auto start = aResult.begin()+aNonTerminalPos; start != aResult.end(); start++)
       {
-        pos++;
+        // Check if non-terminal.
         if( (*start)[0] == '<')
         {
           std::cout << "::::::::::::::::{" << (*start) << "}" << endl;
           newNonTerminalPos = pos;
           break;
         }
+        pos++;
       }
-      /*
-      for(auto start = aResult.begin(); start != aResult.end(); start++)
-      {
-        std::cout << "{" << (*start) << "}";
-      }
-
-      std::cout << "-----<" << newNonTerminalPos << endl;
-      */
+      
+      // Recurse.      
       expandOn(grammar, newNonTerminalPos, aResult);
     }
 }
