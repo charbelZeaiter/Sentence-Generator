@@ -6,6 +6,7 @@
  */
 
 #include "production.h"
+#include <sstream>
 
 /**
  * Helper Method Prototypes
@@ -22,7 +23,7 @@ void formatForPunctuation(string& aString);
  */
 
 Production::Production(ifstream& infile)
-{
+{	
    	// Get Production line to parse.
 	char tempString[500];
 	infile.getline(tempString, 500, '\n');
@@ -31,26 +32,20 @@ Production::Production(ifstream& infile)
 	std::string rawStringObject = tempString;
 	std::string trimmedString = trimString(rawStringObject);
 
-	std::cout << "%%%%(" << trimmedString << ")%%%%" << endl;
-
 	// Prepare punctuation.
 	formatForPunctuation(trimmedString);
-
-	std::cout << "%%%%(" << trimmedString << ")%%%%" << endl;
 
 	// Turn string into a stream for word easy extraction.
 	std::stringstream myStringStream(trimmedString);
 
 	// Loop through; extract and store all words in vector.
 	std::string temp;
+	myStringStream >> temp;
 	while(temp != ";")
 	{
+		this->phrases.push_back(temp);
+		
 		myStringStream >> temp;
-		if(temp != ";")
-		{
-			this->phrases.push_back(temp);
-			std::cout << "---------[" << temp << "]----------" << endl;
-		}
 	}
 }
 

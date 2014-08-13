@@ -67,7 +67,7 @@ class Definition {
   
   const Production& getRandomProduction() const;
   
- //private:
+ private:
   string nonterminal;
   vector<Production> possibleExpansions;
 };

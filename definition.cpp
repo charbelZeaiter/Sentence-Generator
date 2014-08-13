@@ -7,6 +7,7 @@
  
 #include "definition.h"
 #include "random.h"
+#include <limits>
 
 /**
  * Helper Method Prototypes
@@ -38,8 +39,6 @@ Definition::Definition(ifstream& infile)
 		// Fill Definition object
 		std::string myStringObj = tempString;
 		this->nonterminal = "<"+trimString(myStringObj);
-		
-		std::cout << "(" << this->nonterminal << ")" << endl;
 
 		// Create productions list.
 		this->possibleExpansions = createProductionsList(infile);
@@ -62,13 +61,9 @@ const Production& Definition::getRandomProduction() const
 	int startIndex = 0;
    	int endIndex = this->possibleExpansions.size()-1;
 
-   	std::cout << "XXXXXXXXXXXXXXXXXX-startIndex: (" << startIndex << ") endIndex: (" << endIndex << ")" << endl;  
-   	
-   	// Generate a random index within range.
-   	RandomGenerator myRandomGenerator;
+   	// Generate a random index within range using a fixed duration object.
+   	static RandomGenerator myRandomGenerator;
    	int randomIndex = myRandomGenerator.getRandomInteger(startIndex, endIndex);
-
-   	std::cout << "ZZZZZZZZZZZZZZZZZZ-randomIndex: (" << randomIndex << ")" << endl;
 
    	return this->possibleExpansions[randomIndex];
 }
@@ -87,19 +82,26 @@ vector<Production> createProductionsList(ifstream& infile)
 
 	// Peek ahead 1 char in stream to make 
 	// sure we isolate definitions. Looking for '}'.
-	char c = (char) infile.peek();
+	char c = infile.peek();
 
 	// While production border not reached, parse internals.
 	while( c != '}' && infile.good())
 	{	
-		Production newProduction = Production(infile);
+		// Check for rubbish char.
+		if(c == '\n' || c == ' ' || c == '\t')
+		{	
+			// Ignore char.
+	      	infile.ignore(numeric_limits<streamsize>::max(), c);
+		}
+		else
+		{
+			Production newProduction = Production(infile);
 
-		myProductions.push_back(newProduction);
+			myProductions.push_back(newProduction);
+		}
 
 		// Update Peek next char.
 		c = (char) infile.peek();
-
-		//std::cout << "Last peek: " << c << endl;
 	}
 
   	return myProductions;

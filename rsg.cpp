@@ -29,16 +29,15 @@ using namespace std;
   {   
     // Keep parsing until EOF is reached.
     while(infile.good())
-    {
-      std::cout << "+++++" << endl;
-      
+    { 
       // Ignore all chars until '{' is reached.
       infile.ignore(numeric_limits<streamsize>::max(), '{');
 
       // Ignore all chars until '\n' is reached.
       infile.ignore(numeric_limits<streamsize>::max(), '<');
 
-      if(infile.good()) {
+      if(infile.good()) 
+      {
         // Beginning of a definition; parse into program.
         Definition myDefinition = Definition(infile);
         
@@ -98,7 +97,6 @@ static void expandOn(const map<string, Definition>& grammar, int aNonTerminalPos
         // Check if non-terminal.
         if( (*start)[0] == '<')
         {
-          std::cout << "::::::::::::::::{" << (*start) << "}" << endl;
           newNonTerminalPos = pos;
           break;
         }
@@ -130,7 +128,16 @@ string formatForOutput(std::vector<string>& aResult)
     else if( (*start).find_first_of(".?:!,") != string::npos)
     {
       // If punctuation found.
-      myString.insert(0, (*start) );
+      if((*start).find_first_not_of(".?:!,") != string::npos)
+      {
+        // Word includes punctuation.
+        myString.insert(0, " "+(*start) );
+      }
+      else
+      {
+        // Isolated Punctuation found.
+        myString.insert(0, (*start) );
+      }
     }
     else
     {  
@@ -164,11 +171,20 @@ static void generateRandomSentences(const map<string, Definition>& grammar,
 
     myResult.push_back("<start>");
     
+    // Randomly expand on a <start> non-terminal.
     expandOn(grammar, 0, myResult);
     
+    // Prepare result to follow output rules.
     std::string output = formatForOutput(myResult);
 
-    std::cout << "Output: (" << output << ")" << endl;
+    std::cout << output << endl;
+
+    // Check that line is not last line.
+    if(i != numSentencesNeeded-1)
+    {
+        std::cout << endl;
+    } 
+
   }
 
 }

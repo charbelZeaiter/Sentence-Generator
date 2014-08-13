@@ -11,7 +11,6 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <sstream>
 
 using namespace std;
 
@@ -79,7 +78,7 @@ class Production {
   iterator end() { return phrases.end(); }
   const_iterator end() const { return phrases.end(); }
   
- //private:
+ private:
   vector<string> phrases;
 };
 
