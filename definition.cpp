@@ -14,7 +14,7 @@
  * -----------------------
  */
  vector<Production> createProductionsList(ifstream& infile);
- string trimString(string& aString);
+ string trimString(const string& aString);
 
 /**
  * Constructor: Definition
@@ -33,8 +33,9 @@ Definition::Definition(ifstream& infile)
 	while( c != '}' && infile.good())
 	{	
 		// Get Non-terminal.
-		char tempString[500];
-		infile.getline(tempString, 500, '\n');
+		const size_t MAX_CHAR_ARRAY_SIZE = 500;
+		char tempString[MAX_CHAR_ARRAY_SIZE];
+		infile.getline(tempString, MAX_CHAR_ARRAY_SIZE, '\n');
 
 		// Fill Definition object
 		std::string myStringObj = tempString;
@@ -114,7 +115,7 @@ vector<Production> createProductionsList(ifstream& infile)
  * of the input string.
  */
 
-string trimString(string& aString)
+string trimString(const string& aString)
 {	
 	std::string trimmedString = aString;
 

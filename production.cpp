@@ -12,7 +12,7 @@
  * Helper Method Prototypes
  * -----------------------
  */
-string trimString(string& aString);
+string trimString(const string& aString);
 void formatForPunctuation(string& aString);
 
 /**
@@ -25,8 +25,9 @@ void formatForPunctuation(string& aString);
 Production::Production(ifstream& infile)
 {	
    	// Get Production line to parse.
-	char tempString[500];
-	infile.getline(tempString, 500, '\n');
+   	const size_t MAX_CHAR_ARRAY_SIZE = 1000;
+	char tempString[MAX_CHAR_ARRAY_SIZE];
+	infile.getline(tempString, MAX_CHAR_ARRAY_SIZE, '\n');
 	
 	// Convert to string object for better manipulation.
 	std::string rawStringObject = tempString;
@@ -34,7 +35,7 @@ Production::Production(ifstream& infile)
 
 	// Prepare punctuation.
 	formatForPunctuation(trimmedString);
-
+	
 	// Turn string into a stream for word easy extraction.
 	std::stringstream myStringStream(trimmedString);
 
@@ -47,6 +48,7 @@ Production::Production(ifstream& infile)
 		
 		myStringStream >> temp;
 	}
+
 }
 
  /**
@@ -54,7 +56,9 @@ Production::Production(ifstream& infile)
    * ---------------------
    * Takes a string a prepares the punctuation to
    * be interprated as a standalone terminal
-   * if there are any spaces around it.
+   * if there are any spaces around it. This 
+   * allows non-termnals to have punctuation next to
+   * them.
  */
 void formatForPunctuation(string& aString)
 {

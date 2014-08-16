@@ -71,8 +71,9 @@ static void expandOn(const map<string, Definition>& grammar, int aNonTerminalPos
 
       auto iterator = grammar.find(aResult[aNonTerminalPos]);
 
-      // If non-terminal is not defined then exit.
+      // If non-terminal is not defined then display error msg and exit.
       if(iterator == grammar.end()) {
+        std::cout << "Could not find \"" << aResult[aNonTerminalPos] << "\" in the grammar file." << endl;
         exit (EXIT_FAILURE);  
       }
 
@@ -112,15 +113,15 @@ static void expandOn(const map<string, Definition>& grammar, int aNonTerminalPos
  * Takes in a vector of terminals and combines
  * them to make one correctly formated string.
  */
-string formatForOutput(std::vector<string>& aResult)
+string formatForOutput(const std::vector<string>& aResult)
 {
   // String to store final combined output.
   std::string myString;
 
   // Loop through vector to append parts.
-  for(auto start = aResult.rbegin(); start != aResult.rend(); start++)
+  for(auto start = aResult.crbegin(); start != aResult.crend(); start++)
   {
-    if(start == aResult.rend()-1)
+    if(start == aResult.crend()-1)
     {
       // Last insert.
       myString.insert(0, (*start) );
