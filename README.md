@@ -60,7 +60,8 @@ For example, the following definition of <verb> has three productions:
 **=== Note ===**  
 - All comments and spaces outside the curly braces of each definition are ignored.
 - All spaces, tabs and newlines inside expansions/productions are ignored.
-- Only 5 punctuation marks are supported “,”, “.”, “?”, “!” and “:”  
+- Only 5 punctuation marks are supported “,”, “.”, “?”, “!” and “:”.
+- Uses a fixed seed; please modify random.cpp to change.
 
 **=== Usage ===**  
 
