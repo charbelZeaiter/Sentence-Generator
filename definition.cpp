@@ -38,7 +38,7 @@ Definition::Definition(ifstream& infile)
 		infile.getline(tempString, MAX_CHAR_ARRAY_SIZE, '\n');
 
 		// Fill Definition object
-		std::string myStringObj = tempString;
+		string myStringObj = tempString;
 		this->nonterminal = "<"+trimString(myStringObj);
 
 		// Create productions list.
@@ -79,7 +79,7 @@ const Production& Definition::getRandomProduction() const
 vector<Production> createProductionsList(ifstream& infile)
 {
    	// Create vector list.
-	std::vector<Production> myProductions;
+	vector<Production> myProductions;
 
 	// Peek ahead 1 char in stream to make 
 	// sure we isolate definitions. Looking for '}'.
@@ -117,7 +117,7 @@ vector<Production> createProductionsList(ifstream& infile)
 
 string trimString(const string& aString)
 {	
-	std::string trimmedString = aString;
+	string trimmedString = aString;
 
    	// Find true start position.
    	size_t startPos = aString.find_first_not_of(" \t\n");

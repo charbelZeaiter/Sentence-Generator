@@ -30,17 +30,17 @@ Production::Production(ifstream& infile)
 	infile.getline(tempString, MAX_CHAR_ARRAY_SIZE, '\n');
 	
 	// Convert to string object for better manipulation.
-	std::string rawStringObject = tempString;
-	std::string trimmedString = trimString(rawStringObject);
+	string rawStringObject = tempString;
+	string trimmedString = trimString(rawStringObject);
 
 	// Prepare punctuation.
 	formatForPunctuation(trimmedString);
 	
 	// Turn string into a stream for word easy extraction.
-	std::stringstream myStringStream(trimmedString);
+	stringstream myStringStream(trimmedString);
 
 	// Loop through; extract and store all words in vector.
-	std::string temp;
+	string temp;
 	myStringStream >> temp;
 	while(temp != ";")
 	{

@@ -42,8 +42,8 @@ using namespace std;
         Definition myDefinition = Definition(infile);
         
         // Fill map.
-        std::string myNonTerminal = myDefinition.getNonterminal();
-        std::pair<string, Definition> myPair(myNonTerminal, myDefinition);
+        string myNonTerminal = myDefinition.getNonterminal();
+        pair<string, Definition> myPair(myNonTerminal, myDefinition);
         grammar.insert(myPair);
       }
     }
@@ -57,7 +57,7 @@ using namespace std;
  * terminals. Modifying the vector.
  */
  
-static void expandOn(const map<string, Definition>& grammar, int aNonTerminalPos, std::vector<string>& aResult)
+static void expandOn(const map<string, Definition>& grammar, int aNonTerminalPos, vector<string>& aResult)
 {
     if(aNonTerminalPos == -1)
     {
@@ -73,7 +73,7 @@ static void expandOn(const map<string, Definition>& grammar, int aNonTerminalPos
 
       // If non-terminal is not defined then display error msg and exit.
       if(iterator == grammar.end()) {
-        std::cout << "Could not find \"" << aResult[aNonTerminalPos] << "\" in the grammar file." << endl;
+        cout << "Could not find \"" << aResult[aNonTerminalPos] << "\" in the grammar file." << endl;
         exit (EXIT_FAILURE);  
       }
 
@@ -113,10 +113,10 @@ static void expandOn(const map<string, Definition>& grammar, int aNonTerminalPos
  * Takes in a vector of terminals and combines
  * them to make one correctly formated string.
  */
-string formatForOutput(const std::vector<string>& aResult)
+string formatForOutput(const vector<string>& aResult)
 {
   // String to store final combined output.
-  std::string myString;
+  string myString;
 
   // Loop through vector to append parts.
   for(auto start = aResult.crbegin(); start != aResult.crend(); start++)
@@ -168,7 +168,7 @@ static void generateRandomSentences(const map<string, Definition>& grammar,
   int i;
   for(i=0;i<numSentencesNeeded;i++)
   {
-    std::vector<string> myResult;
+    vector<string> myResult;
 
     myResult.push_back("<start>");
     
@@ -176,14 +176,14 @@ static void generateRandomSentences(const map<string, Definition>& grammar,
     expandOn(grammar, 0, myResult);
     
     // Prepare result to follow output rules.
-    std::string output = formatForOutput(myResult);
+    string output = formatForOutput(myResult);
 
-    std::cout << output << endl;
+    cout << output << endl;
 
     // Check that line is not last line.
     if(i != numSentencesNeeded-1)
     {
-        std::cout << endl;
+        cout << endl;
     } 
 
   }
