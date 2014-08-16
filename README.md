@@ -3,33 +3,33 @@ Sentence-Generator
 
 A Program which produces random sentances based on an input file. 
 
-**=== What is the input file? ===**
+**=== What is the input file? ===** 
 It is a grammar file. A grammar is a set of rules for some language, in this case it is called a context-free grammar (CFG).  
 
 Here is an example of a simple CFG:  
   
 The Poem grammar
-{  
-<start>  
-The <object> <verb> tonight. ;  
-}  
-{  
-<object>  
-waves ;  
-big yellow flowers ;  
-slugs ;  
-}  
-{  
-<verb>  
-sigh <adverb> ;  
-portend like <object> ;  
-die <adverb> ;  
-}  
-{  
-<adverb>  
-warily ;  
-grumpily ;  
-}  
+    {  
+    <start>  
+    The <object> <verb> tonight. ;  
+    }  
+    {  
+    <object>  
+    waves ;  
+    big yellow flowers ;  
+    slugs ;  
+    }  
+    {  
+    <verb>  
+    sigh <adverb> ;  
+    portend like <object> ;  
+    die <adverb> ;  
+    }  
+    {  
+    <adverb>  
+    warily ;  
+    grumpily ;  
+    }  
   
 According to this grammar, two possible poems are “The big yellow flowers sigh warily tonight.” and
 “The slugs portend like waves tonight.“ Essentially, the strings in angle-brackets (<>) are variables which
