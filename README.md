@@ -5,6 +5,7 @@ A Program which produces random sentances based on an input file.
 
 **=== What is the input file? ===**  
 It is a grammar file. A grammar is a set of rules for some language, in this case it is called a context-free grammar (CFG).   
+Essentially the input file contains tags and the program recursivly expands on tags and chooses a random expansion for those tags. Hence you can create your own grammars and have the program randomly generate sentances for you. (Always good to fill up space in an essay :P) 
 
 Here is an example of a simple CFG:  
 
@@ -45,16 +46,21 @@ A definition consists of a non-terminal (on its own line) and its set of product
 which is terminated by a semi-colon (;). There will always be at least one and potentially several productions
 for each non-terminal. A production is just a sequence of words, some of which themselves may be non-
 terminals. A production can be empty (i.e., just consist of the terminating semi-colon) which makes it
-possible for a non-terminal to evaporate into nothingness. The entire definition is enclosed in braces ({}).
-The following definition of <verb> has three productions:  
+possible for a non-terminal to evaporate into nothingness. The entire definition is enclosed in braces ({}).  
 
-{  
-<verb>  
-sigh <adverb> ;  
-portend like <object> ;  
-die <adverb> ;  
-}  
+For example, the following definition of <verb> has three productions:  
 
+    {  
+    <verb>                               // Non-terminal.
+    sigh <adverb> ;                      // Production 1.        
+    portend like <object> ;              // Production 2.
+    die <adverb> ;                       // Production 3.
+    }  
+
+**=== Note ===**  
+- All comments and spaces outside the curly braces of each definition are ignored.
+- All spaces, tabs and newlines inside expansions/productions are ignored.
+- Only 5 punctuation marks are supported “,”, “.”, “?”, “!” and “:”  
 
 **=== Usage ===**  
 
